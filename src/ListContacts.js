@@ -14,7 +14,14 @@ export default function ListContacts(props) {
             <p>{contact.name}</p>
             <p>@{contact.handle}</p>
           </div>
-          <button className="contact-remove">remove</button>
+          <button
+            className="contact-remove"
+            onClick={() => {
+              props.onDeleteContact(contact.id);
+            }}
+          >
+            remove
+          </button>
         </li>
       ))}
     </ol>
@@ -23,4 +30,5 @@ export default function ListContacts(props) {
 
 ListContacts.propTypes = {
   contacts: PropTypes.array.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
 };
