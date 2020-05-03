@@ -5,6 +5,7 @@ export default class ListContacts extends Component {
   static propTypes = {
     contacts: PropTypes.array.isRequired,
     onDeleteContact: PropTypes.func.isRequired,
+    onNavigate: PropTypes.func.isRequired,
   };
 
   state = {
@@ -42,6 +43,13 @@ export default class ListContacts extends Component {
             value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
           />
+          <a
+            href="#create"
+            className="add-contact"
+            onClick={this.props.onNavigate}
+          >
+            Add Contact
+          </a>
         </div>
         {showingContacts.length !== contacts.length && (
           <div className="showing-contacts">
