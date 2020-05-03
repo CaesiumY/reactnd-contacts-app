@@ -65,7 +65,7 @@ export default class ListContacts extends Component {
               <button
                 className="contact-remove"
                 onClick={() => {
-                  onDeleteContact(contact.id);
+                  onDeleteContact(contact);
                 }}
               >
                 remove
