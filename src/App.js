@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ListContacts from "./ListContacts";
-import { getAll, remove } from "./utils/ContactsAPI";
+import { getAll, remove, create } from "./utils/ContactsAPI";
 import CreateContact from "./CreateContact";
 import { Route } from "react-router-dom";
 
@@ -27,6 +27,14 @@ class App extends Component {
     remove(contact);
   };
 
+  onCreateContact = (contact) => {
+    create(contact).then(
+      this.setState((state) => ({
+        contacts: [...state.contacts, contact],
+      }))
+    );
+  };
+
   render() {
     return (
       <div>
@@ -41,7 +49,17 @@ class App extends Component {
           )}
         />
 
-        <Route path="/create" component={CreateContact} />
+        <Route
+          path="/create"
+          render={({ history }) => (
+            <CreateContact
+              onCreateContact={(contact) => {
+                this.onCreateContact(contact);
+                history.push("/");
+              }}
+            />
+          )}
+        />
       </div>
     );
   }
