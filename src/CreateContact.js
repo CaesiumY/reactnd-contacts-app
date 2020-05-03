@@ -1,12 +1,42 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import ImageInput from "./ImageInput";
+import FormSerialize from "form-serialize";
 
 export default class CreateContact extends Component {
   static propTypes = {
-    prop: PropTypes,
+    onCreateContact: PropTypes.func.isRequired,
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const value = FormSerialize(e.target, { hash: true });
+
+    if (this.props.onCreateContact) {
+      this.props.onCreateContact(value);
+    }
   };
 
   render() {
-    return <div>create contact</div>;
+    return (
+      <div>
+        <Link className="close-create-contact" to="/">
+          Close
+        </Link>
+        <form onSubmit={this.handleSubmit} className="create-contact-form">
+          <ImageInput
+            className="create-contact-avatar-input"
+            name="avatarURL"
+            maxHeight={64}
+          />
+          <div className="create-contact-details">
+            <input type="text" name="name" placeholder="Name" />
+            <input type="text" name="handle" placeholder="Handle" />
+            <button>Add Contact</button>
+          </div>
+        </form>
+      </div>
+    );
   }
 }
